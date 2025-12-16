@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Free Diamonds</title>
+    <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- <link href="https://cdn.tailwindcss.com" rel="stylesheet" /> -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .submit-outer {
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        padding-top: 1.5rem;
+        padding-bottom: 0.75rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        margin-top: 0.75rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .sub-text {
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        padding-right: 0.75rem;
+      }
+      .btn-submit {
+        width: 100%;
+        display: flex;
+        background-color: #34a852;
+        border-radius: 42px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        cursor: pointer;
+      }
+      .text {
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.25rem;
+      }
+      .input-id {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 42px;
+        padding-left: 2.5rem;
+        border: 1px solid #d1d5db;
+      }
+
+      .input-id:focus {
+        outline: none;
+        ring-width: 2px;
+        ring-color: #3b82f6;
+      }
+      .icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-arrow">
+        <button onclick="goback()" style="color: white; font-size: 18px; background-color: transparent;"> <i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+      <!-- Left arrow -->
+      <div class="header-title">Submit</div>
+      <div class="info-icon">
+       <button onclick="window.location.href='/';" style="color: white; font-size: 18px; background-color: transparent;"><i class="fa-solid fa-house"></i></button>
+      </div>
+      <!-- Info icon -->
+    </header>
+    <div class="outer">
+      <div class="container">
+        <div class="inner">
+          <div class="pb10" style="width: 360px; height: 280px; padding:16px 0 ;"></div>
+          <div class="submit-outer">
+            <div class="sub-text">
+              Enter your <span style="color: #8574e0">Username</span> or <br />
+              <span style="color: #8574e0">User ID</span> to Unlock Rewards.
+            </div>
+            <form action="success.html" style="position: relative; padding-top: 1.25rem">
+              <div class="" style="position: relative">
+                <input
+                  type="text"
+                  class="input-id"
+                  placeholder="Enter User Id"
+                  required
+                  value
+                />
+                <span class="icon"><i class="fa-solid fa-user"></i></span>
+              </div>
+              <!-- <a href=""> -->
+                <button type="submit" class="btn-submit">
+                  <span class="text">SUBMIT</span>
+                </button>
+              <!-- </a> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { logPageView } from "./firebase-config.js";
+      logPageView("submit page");
+    </script>
+    <script>
+      function goback(){
+        window.history.back()
+      }
+    </script>
+  </body>
+</html>

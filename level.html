@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Free Diamonds</title>
+    <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .level-outer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* equivalent to gap-4 in Tailwind (usually 1rem) */
+      }
+      .level-inner {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.5); /* border-white/50 */
+        background-color: rgba(255, 255, 255, 0.15); /* bg-white/15 */
+        backdrop-filter: blur(6px); /* backdrop-blur-[6px] */
+        padding-left: 1.25rem; /* px-5 (Tailwind's px-5 equals 1.25rem) */
+        padding-right: 1.25rem; /* px-5 */
+        border-radius: 1rem; /* rounded-2xl */
+        cursor: pointer;
+      }
+
+      .lavel {
+        color: white; /* text-white */
+        font-size: 1.125rem; /* text-lg (Tailwind's text-lg is 1.125rem) */
+        text-align: center; /* text-center */
+        font-weight: 600; /* font-semibold */
+        line-height: 1.5rem; /* leading-6 (Tailwind's leading-6 is 1.5rem) */
+        padding-top: 0.875rem; /* py-3.5 (Tailwind's py-3.5 is 0.875rem) */
+        padding-bottom: 0.875rem; /* py-3.5 */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-arrow">
+        <button onclick="goback()" style="color: white; font-size: 18px; background-color: transparent;"> <i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+      <!-- Left arrow -->
+      <div class="header-title">level</div>
+      <div class="info-icon">
+       <button onclick="window.location.href='/';" style="color: white; font-size: 18px; background-color: transparent;"><i class="fa-solid fa-house"></i></button>
+      </div>
+      <!-- Info icon -->
+    </header>
+    <div class="outer">
+      <div class="container">
+        <div class="inner">
+          <div class="pb10" style="width: 360px; height: 280px; padding:16px 0 ;"></div>
+          <div class="level-outer">
+            <a href="Apply.html">
+              <div class="level-inner">
+                <div class="lavel">0 - 25</div>
+              </div>
+            </a>
+            <a href="Apply.html">
+              <div class="level-inner">
+                <div class="lavel">26 - 40</div>
+              </div>
+            </a>
+            <a href="Apply.html">
+              <div class="level-inner">
+                <div class="lavel">41 - 50</div>
+              </div>
+            </a>
+            <a href="Apply.html">
+              <div class="level-inner">
+                <div class="lavel">51 - 60</div>
+              </div>
+            </a>
+            <a href="Apply.html">
+              <div class="level-inner">
+                <div class="lavel">61 - 70</div>
+              </div>
+            </a>
+            <a href="Apply.html">
+              <div class="level-inner">
+                <div class="lavel">70+</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { logPageView } from "./firebase-config.js";
+      logPageView("level page");
+    </script>
+    <script>
+      function goback(){
+        window.history.back()
+      }
+    </script>
+  </body>
+</html>

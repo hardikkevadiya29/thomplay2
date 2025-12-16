@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Free Diamonds</title>
+    <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="nav-arrow">
+        <button
+          onclick="goback()"
+          style="color: white; font-size: 18px; background-color: transparent"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+      <div class="header-title" id="header-title">Elite Rewards</div>
+      <div class="info-icon">
+        <button
+          onclick="window.location.href='/';"
+          style="color: white; font-size: 18px; background-color: transparent"
+        >
+          <i class="fa-solid fa-house"></i>
+        </button>
+      </div>
+    </header>
+    <div class="outer">
+      <div class="container">
+        <div class="inner">
+          <div class="pb10" style="width: 360px; height: 280px; padding:16px 0 ;"></div>
+          <div
+            class="flex flex-col gap-5 mx-auto max-w-[360px] sm:max-w-[480px] pt-[100px] pb-10"
+            id="dynamic-container"
+          >
+            <!-- Items will be populated here dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { logPageView } from "./firebase-config.js";
+      logPageView("Pass page");
+    </script>
+    <script src="assets/css/js/json.js"></script>
+    <!-- JavaScript to handle dynamic content -->
+    <script>
+      // Function to populate the container with items
+      function populateContainer(items, title) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get("t")?.toLowerCase();
+        const container = document.getElementById("dynamic-container");
+        const headerTitle = document.getElementById("header-title");
+
+        // Update header title
+        if (headerTitle) {
+          headerTitle.textContent = title;
+        }
+
+        // Clear existing content
+        if (container) {
+          container.innerHTML = "";
+
+          // Check if items exist and have data
+          if (!items || items.length === 0) {
+            container.innerHTML = "<p style='color: white; text-align: center; padding: 20px;'>No rewards available.</p>";
+            return;
+          }
+
+          // Populate items
+          items.forEach((item) => {
+            const div = document.createElement("div");
+            div.className =
+              "bg-no-repeat bg-black py-4 ps-3 pe-5 overflow-hidden rounded-xl mb-4";
+            div.style.backgroundImage = "url('assets/img/elite-bg.png')";
+            div.style.backgroundSize = "100% 100%";
+
+            // Determine button image based on type
+            let buttonImg = 'elite-btn.png';
+            if (type === 'booyah') {
+              buttonImg = 'booyah-btn.png';
+            } else if (type === 'rewards') {
+              buttonImg = 'rewards-btn.png';
+            }
+
+            div.innerHTML = `
+              <a href="Players.html" style="text-decoration: none; display: block;">
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-col gap-2">
+                    <div class="text-[#A8C5F3] text-lg leading-6 font-bold">${item.name || 'Reward'}</div>
+                    <div class="text-xs text-white font-semibold">${item.description || 'Description'}</div>
+                  </div>
+                  <img class="object-contain w-[91px] cursor-pointer" alt="${type}-button" src="assets/img/${buttonImg}" onerror="this.src='assets/img/elite-btn.png'" />
+                </div>
+              </a>
+            `;
+
+            container.appendChild(div);
+          });
+        }
+      }
+
+      // Wait for data to be available
+      function loadContent() {
+        // Check if data is loaded
+        if (typeof data === 'undefined') {
+          setTimeout(loadContent, 100);
+          return;
+        }
+
+        // Get the query parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get("t")?.toLowerCase();
+
+        // Decide which data to display based on the query parameter
+        if (type === "booyah" && data.booyah) {
+          populateContainer(data.booyah, "Booyah Pass Rewards");
+        } else if (type === "rewards" && data.rewards) {
+          populateContainer(data.rewards, "General Rewards");
+        } else if (data.elite) {
+          // Default to elite if no valid type is provided
+          populateContainer(data.elite, "Elite Rewards");
+        } else {
+          const container = document.getElementById("dynamic-container");
+          if (container) {
+            container.innerHTML = "<p style='color: white; text-align: center; padding: 20px;'>Loading rewards...</p>";
+          }
+        }
+      }
+
+      // Start loading content when page loads
+      window.addEventListener('load', loadContent);
+      // Also try on DOMContentLoaded
+      document.addEventListener('DOMContentLoaded', loadContent);
+      // Immediate call as backup
+      loadContent();
+    </script>
+    <script>
+      function goback() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

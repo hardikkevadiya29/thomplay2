@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Free Diamonds</title>
+    <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+     <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] =
+        c[a] ||
+        function () {
+          (c[a].q = c[a].q || []).push(arguments);
+        };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "ok0yfmykt8");
+  </script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      body {
+        display: block;
+        background-color: #1a1a2e;
+      }
+      .body {
+        display: block;
+        width: 100%;
+      }
+      .notification-outer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        text-align: center;
+        pointer-events: none;
+      }
+      .notification-outer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        pointer-events: none;
+      }
+      .notification-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 330px;
+        height: 310px;
+        border: 1px solid white;
+        z-index: 10001;
+        border-radius: 10px;
+        padding: 12px 9px 9px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        pointer-events: auto !important;
+        background: transparent;
+      }
+      .notification-box * {
+        pointer-events: auto !important;
+      }
+      .notification-box .pb10 {
+        pointer-events: auto !important;
+        position: relative !important;
+        z-index: 10002 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      .notification-box .pb10 * {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        position: relative !important;
+        z-index: 10003 !important;
+      }
+      .notification-box .pb10 a,
+      .notification-box .pb10 button,
+      .notification-box .pb10 div,
+      .notification-box .pb10 span,
+      .notification-box .pb10 [onclick],
+      .notification-box .pb10 [role="button"],
+      .notification-box .pb10 [style*="cursor: pointer"] {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        z-index: 10004 !important;
+        position: relative !important;
+      }
+      .notification-box iframe {
+        pointer-events: auto !important;
+        z-index: 10005 !important;
+      }
+
+
+      .pb10 {
+        /* width: 360px;
+        height: 280px; */
+        margin: 0 auto;
+        pointer-events: auto;
+      }
+      .pb10 * {
+        pointer-events: auto;
+      }
+      .container {
+        display: flex;
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+      }
+      .outer {
+        display: block;
+      }
+      .inner {
+        display: block;
+        margin: 0 auto;
+        position: relative;
+      }
+      .logo-outer {
+        display: block;
+        justify-items: center;
+        margin-bottom: 26px;
+      }
+      .logo {
+        width: 9rem;
+        margin: 0 auto;
+      }
+      .item {
+        display: flex;
+        padding-top: 2.5rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 0.5rem;
+      }
+
+      /* Notification Box */
+
+      /* Disable scrolling when notification is visible */
+      body.no-scroll {
+        overflow: hidden;
+      }
+
+      /*  */
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* background-color:#1a1a2e; */
+        align-items: center;
+        justify-content: center;
+        z-index: 10010;
+        backdrop-filter: blur(6px);
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      /* Popup dialog */
+      .popup-dialog {
+        display: none;
+        background: #1a1a2e;
+        border-radius: 12px;
+        padding: 24px;
+        width: 100%;
+        max-width: 340px;
+        text-align: center;
+        animation: scaleIn 0.2s ease-out;
+      }
+
+      .popup-heading {
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+        margin-top: 0;
+        margin-bottom: 12px;
+        margin-top: 20px;
+      }
+
+      .popup-message {
+        font-size: 16px;
+        line-height: 1.5;
+        color: white;
+        /* opacity: 0.7; */
+        font-weight: 600;
+        margin: 35px 0;
+      }
+
+      .popup-button {
+        background-color: #330a92;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 18px 24px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        width: 100%;
+        max-width: 200px;
+        -webkit-tap-highlight-color: transparent;
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
+      /*  */
+
+    </style>
+  </head>
+  <body onload="demo()">
+    <!-- Notification Box -->
+    <div class="body">
+      <div class="notification-outer" id="notification-outer">
+        <div class="notification-box" id="notificationBox" onclick="handleAdClick(event)">
+          <div class="pb10" id="ad-container" style="width: 300px; height: 280px; margin: 0 auto" onclick="handleAdClick(event)"></div>
+        </div>
+      </div>
+      <div class="outer">
+        <div class="container">
+          <div class="inner">
+            <div class="logo-outer">
+              <img alt="Logo" class="logo" src="assets/img/logo.png" />
+            </div>
+
+            <div
+              class="pb10"
+              style="width: 360px; height: 280px; padding: 16px 0"
+            ></div>
+            <div class="popup-overlay" id="next-outer1">
+              <div class="popup-dialog" id="nextbox1">
+                <h2 class="popup-heading">Unlock ads blocker</h2>
+                <p class="popup-message">
+                  Please disable your ad blocker to support us and enjoy an
+                  uninterrupted experience.
+                </p>
+                <button
+                  class="popup-button"
+                  id="UnlockButton"
+                  onclick="refreshPage()"
+                >
+                  Refresh Page
+                </button>
+              </div>
+            </div>
+            <div class="item">
+              <a href="Tools.html">
+                <img src="assets/img/home-btn.png" class="" />
+              </a>
+            </div>
+            <div class="item">
+              <a href="elite.html">
+                <img src="assets/img/elite-home.png" alt="" />
+              </a>
+            </div>
+            <div class="item">
+              <a href="diamonds-coin.html">
+                <img src="assets/img/coin-home.png" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module">
+      import { logPageView } from "./firebase-config.js";
+      logPageView("FF Free Diamonds");
+    </script>
+
+    <script>
+      function demo() {
+        document.getElementById("notificationBox").style.display = "block";
+        document.getElementById("notification-outer").style.display = "block";
+        document.body.classList.add("no-scroll");
+        
+        // Force notification box to be clickable
+        const notificationBox = document.getElementById('notificationBox');
+        if (notificationBox) {
+          notificationBox.style.pointerEvents = 'auto';
+          notificationBox.style.zIndex = '10001';
+        }
+        
+        // Make all ad content clickable
+        function makeAdClickable() {
+          const adContainer = document.getElementById('ad-container') || document.querySelector('.notification-box .pb10');
+          if (adContainer) {
+            // Force pointer events on container
+            adContainer.style.setProperty('pointer-events', 'auto', 'important');
+            adContainer.style.setProperty('z-index', '10006', 'important');
+            adContainer.style.setProperty('position', 'relative', 'important');
+            
+            // Remove any existing click handlers to avoid duplicates
+            const newClickHandler = function(e) {
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+              e.preventDefault();
+              
+              // Find the clicked element
+              let target = e.target;
+              let clickedText = '';
+              
+              // Get text from target and parents
+              const getText = function(el) {
+                return (el.textContent || el.innerText || '').trim();
+              };
+              
+              // Traverse up to find clickable parent
+              for (let i = 0; i < 10 && target && target !== adContainer; i++) {
+                clickedText = getText(target);
+                
+                // Check if it's a link
+                if (target.tagName === 'A' && target.href && target.href !== '#') {
+                  window.open(target.href, target.target || '_blank');
+                  return;
+                }
+                
+                // Check if it's a button
+                if (target.tagName === 'BUTTON') {
+                  if (target.onclick) {
+                    target.onclick(e);
+                  } else {
+                    // Trigger button click
+                    const clickEvent = new MouseEvent('click', {
+                      bubbles: true,
+                      cancelable: true,
+                      view: window
+                    });
+                    target.dispatchEvent(clickEvent);
+                  }
+                  return;
+                }
+                
+                // Check if it has onclick
+                if (target.onclick) {
+                  target.onclick(e);
+                  return;
+                }
+                
+                const onclickAttr = target.getAttribute('onclick');
+                if (onclickAttr) {
+                  try {
+                    eval(onclickAttr);
+                  } catch(err) {
+                    console.log('Error executing onclick:', err);
+                  }
+                  return;
+                }
+                
+                // Check for "FREE TO PLAY" text
+                if (clickedText.includes('FREE TO PLAY') || clickedText.includes('FREE TO PLAY >>')) {
+                  window.location.href = 'Tools.html';
+                  return;
+                }
+                
+                // Check for "GET STORE" text
+                if (clickedText.includes('GET STORE') || clickedText.includes('GET STORE >>>')) {
+                  window.location.href = 'elite.html';
+                  return;
+                }
+                
+                // Check parent elements for button-like structure
+                if (target.parentElement) {
+                  const parentText = getText(target.parentElement);
+                  if (parentText.includes('FREE TO PLAY')) {
+                    window.location.href = 'Tools.html';
+                    return;
+                  }
+                  if (parentText.includes('GET STORE')) {
+                    window.location.href = 'elite.html';
+                    return;
+                  }
+                }
+                
+                target = target.parentElement;
+              }
+              
+              // If we get here, check the entire container text
+              const containerText = getText(adContainer);
+              if (containerText.includes('FREE TO PLAY')) {
+                window.location.href = 'Tools.html';
+              } else if (containerText.includes('GET STORE')) {
+                window.location.href = 'elite.html';
+              }
+            };
+            
+            // Simple direct click handler - check container text and navigate
+            const simpleClickHandler = function(e) {
+              const containerText = (adContainer.textContent || adContainer.innerText || '').toLowerCase();
+              
+              // Check for FF Tool / FREE TO PLAY
+              if (containerText.includes('free to play') || containerText.includes('ff tool')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                window.location.href = 'Tools.html';
+                return false;
+              }
+              
+              // Check for Elite Pass / GET STORE
+              if (containerText.includes('get store') || containerText.includes('elite pass') || containerText.includes('booyah pass')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                window.location.href = 'elite.html';
+                return false;
+              }
+            };
+            
+            // Remove old handlers and add new simple one
+            adContainer.removeEventListener('click', newClickHandler, true);
+            adContainer.removeEventListener('click', simpleClickHandler, true);
+            adContainer.addEventListener('click', simpleClickHandler, true);
+            
+            // Also add the detailed handler as backup
+            adContainer.addEventListener('click', newClickHandler, true);
+            
+            // Add to notification box itself as backup
+            const notificationBox = document.getElementById('notificationBox');
+            if (notificationBox) {
+              const boxClickHandler = function(e) {
+                // Only handle if click is inside ad container
+                if (adContainer.contains(e.target) || e.target === adContainer) {
+                  const containerText = (adContainer.textContent || adContainer.innerText || '').toLowerCase();
+                  
+                  if (containerText.includes('free to play') || containerText.includes('ff tool')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location.href = 'Tools.html';
+                    return false;
+                  }
+                  
+                  if (containerText.includes('get store') || containerText.includes('elite pass')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location.href = 'elite.html';
+                    return false;
+                  }
+                }
+              };
+              
+              notificationBox.removeEventListener('click', boxClickHandler, true);
+              notificationBox.addEventListener('click', boxClickHandler, true);
+            }
+            
+            // Also add mousedown and touchstart for better mobile support
+            adContainer.addEventListener('mousedown', function(e) {
+              e.stopPropagation();
+            }, true);
+            
+            adContainer.addEventListener('touchstart', function(e) {
+              e.stopPropagation();
+            }, true);
+            
+            // Make the entire container area clickable
+            adContainer.style.cursor = 'pointer';
+            adContainer.setAttribute('data-clickable', 'true');
+            
+            // Make ALL elements inside clickable
+            const allElements = adContainer.querySelectorAll('*');
+            allElements.forEach(function(el) {
+              el.style.setProperty('pointer-events', 'auto', 'important');
+              el.style.setProperty('z-index', '10007', 'important');
+              el.style.setProperty('position', 'relative', 'important');
+              
+              // Remove any blocking styles
+              el.style.setProperty('user-select', 'auto', 'important');
+              
+              // Make interactive elements explicitly clickable
+              if (el.tagName === 'A' || el.tagName === 'BUTTON' || 
+                  el.onclick || el.getAttribute('onclick') ||
+                  el.getAttribute('href') || el.getAttribute('role') === 'button') {
+                el.style.setProperty('cursor', 'pointer', 'important');
+                el.style.setProperty('z-index', '10008', 'important');
+                
+                // Add click handler if it's a link or button
+                if (el.tagName === 'A' && el.href) {
+                  el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    window.open(el.href, el.target || '_blank');
+                  }, true);
+                }
+              }
+              
+              // Check for button-like text content
+              const text = el.textContent || el.innerText || '';
+              if (text.includes('FREE TO PLAY') || text.includes('GET STORE')) {
+                el.style.setProperty('cursor', 'pointer', 'important');
+                el.style.setProperty('z-index', '10009', 'important');
+                el.style.setProperty('pointer-events', 'auto', 'important');
+              }
+            });
+            
+            // Handle iframes (ads often use iframes)
+            const iframes = adContainer.querySelectorAll('iframe');
+            iframes.forEach(function(iframe) {
+              iframe.style.setProperty('pointer-events', 'auto', 'important');
+              iframe.style.setProperty('z-index', '10010', 'important');
+            });
+            
+            // Find all divs, spans, and other elements that might be buttons
+            const potentialButtons = adContainer.querySelectorAll('div, span, p, h1, h2, h3, h4, h5, h6, a, button');
+            potentialButtons.forEach(function(el) {
+              const text = (el.textContent || el.innerText || '').trim();
+              const style = window.getComputedStyle(el);
+              
+              // Check if it looks like a button or contains button text
+              if (text.includes('FREE TO PLAY') || text.includes('GET STORE') ||
+                  text.includes('PLAY') || text.includes('STORE') ||
+                  style.cursor === 'pointer' || el.getAttribute('onclick') ||
+                  el.className.includes('button') || el.className.includes('btn') ||
+                  el.tagName === 'BUTTON' || el.tagName === 'A') {
+                el.style.setProperty('pointer-events', 'auto', 'important');
+                el.style.setProperty('cursor', 'pointer', 'important');
+                el.style.setProperty('z-index', '10011', 'important');
+                el.style.setProperty('position', 'relative', 'important');
+                
+                // Add explicit click handler for buttons with text
+                if (text.includes('FREE TO PLAY')) {
+                  el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    window.location.href = 'Tools.html';
+                  }, true);
+                } else if (text.includes('GET STORE')) {
+                  el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    window.location.href = 'elite.html';
+                  }, true);
+                }
+              }
+            });
+            
+            // Also check for any elements with specific button classes or IDs
+            const buttonSelectors = [
+              '[class*="button"]',
+              '[class*="btn"]',
+              '[id*="button"]',
+              '[id*="btn"]',
+              '[role="button"]'
+            ];
+            
+            buttonSelectors.forEach(function(selector) {
+              try {
+                const buttons = adContainer.querySelectorAll(selector);
+                buttons.forEach(function(btn) {
+                  btn.style.setProperty('pointer-events', 'auto', 'important');
+                  btn.style.setProperty('cursor', 'pointer', 'important');
+                  btn.style.setProperty('z-index', '10012', 'important');
+                });
+              } catch(e) {
+                // Ignore invalid selectors
+              }
+            });
+          }
+        }
+        
+        // Try multiple times to catch dynamically loaded ads
+        makeAdClickable();
+        setTimeout(makeAdClickable, 100);
+        setTimeout(makeAdClickable, 500);
+        setTimeout(makeAdClickable, 1000);
+        setTimeout(makeAdClickable, 2000);
+        setTimeout(makeAdClickable, 3000);
+        setTimeout(makeAdClickable, 5000);
+        
+        // Add a simple global click handler on the entire notification box
+        setTimeout(function() {
+          const notificationBox = document.getElementById('notificationBox');
+          if (notificationBox) {
+            // Make entire box clickable
+            notificationBox.onclick = function(e) {
+              console.log('Box onclick triggered');
+              const adContainer = document.getElementById('ad-container');
+              const text = adContainer ? (adContainer.textContent || adContainer.innerText || '').toLowerCase() : '';
+              
+              if (text.includes('free to play') || text.includes('ff tool')) {
+                window.location.href = 'Tools.html';
+              } else if (text.includes('get store') || text.includes('elite pass')) {
+                window.location.href = 'elite.html';
+              } else {
+                // Default to Tools.html for first ad
+                window.location.href = 'Tools.html';
+              }
+            };
+          }
+        }, 2000);
+        
+        // Use MutationObserver to watch for dynamically added ad content
+        const observer = new MutationObserver(function(mutations) {
+          makeAdClickable();
+        });
+        
+        if (notificationBox) {
+          observer.observe(notificationBox, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class']
+          });
+        }
+      }
+
+      function refreshPage() {
+        location.reload();
+      }
+      
+      // Direct click handler function - called from onclick attribute
+      function handleAdClick(event) {
+        if (event) {
+          event.stopPropagation();
+          event.preventDefault();
+        }
+        
+        console.log('handleAdClick called');
+        
+        const adContainer = document.getElementById('ad-container') || document.querySelector('.notification-box .pb10');
+        const notificationBox = document.getElementById('notificationBox');
+        
+        // Get text from both container and box
+        let containerText = '';
+        let boxText = '';
+        
+        if (adContainer) {
+          containerText = (adContainer.textContent || adContainer.innerText || adContainer.innerHTML || '').toLowerCase();
+          console.log('Container text:', containerText);
+        }
+        
+        if (notificationBox) {
+          boxText = (notificationBox.textContent || notificationBox.innerText || notificationBox.innerHTML || '').toLowerCase();
+          console.log('Box text:', boxText);
+        }
+        
+        const allText = containerText + ' ' + boxText;
+        console.log('All text combined:', allText);
+        
+        // Check for FF Tool / FREE TO PLAY - navigate immediately
+        if (allText.includes('free to play') || allText.includes('ff tool') || allText.includes('unlock free character')) {
+          console.log('Navigating to Tools.html');
+          try {
+            window.location.href = 'Tools.html';
+            window.location.replace('Tools.html');
+            return false;
+          } catch(e) {
+            console.error('Navigation error:', e);
+            window.open('Tools.html', '_self');
+          }
+          return false;
+        }
+        
+        // Check for Elite Pass / GET STORE
+        if (allText.includes('get store') || allText.includes('elite pass') || allText.includes('booyah pass')) {
+          console.log('Navigating to elite.html');
+          try {
+            window.location.href = 'elite.html';
+            window.location.replace('elite.html');
+            return false;
+          } catch(e) {
+            console.error('Navigation error:', e);
+            window.open('elite.html', '_self');
+          }
+          return false;
+        }
+        
+        // If text is empty or not found, check click position
+        // Top half of box = FF Tool, bottom half = Elite Pass
+        if (event && event.clientY) {
+          const boxRect = notificationBox ? notificationBox.getBoundingClientRect() : null;
+          if (boxRect) {
+            const clickY = event.clientY;
+            const boxCenter = boxRect.top + (boxRect.height / 2);
+            
+            if (clickY < boxCenter) {
+              // Clicked on top half - FF Tool
+              console.log('Top half clicked - Navigating to Tools.html');
+              window.location.href = 'Tools.html';
+              return false;
+            } else {
+              // Clicked on bottom half - Elite Pass
+              console.log('Bottom half clicked - Navigating to elite.html');
+              window.location.href = 'elite.html';
+              return false;
+            }
+          }
+        }
+        
+        // Final fallback - default to Tools.html
+        console.log('Fallback: Navigating to Tools.html');
+        window.location.href = 'Tools.html';
+        return false;
+      }
+      
+      // Ensure clicks work on notification box - run immediately
+      (function() {
+        const notificationBox = document.getElementById('notificationBox');
+        const notificationOuter = document.getElementById('notification-outer');
+        const adContainer = document.getElementById('ad-container');
+        
+        // Make notification box fully clickable
+        if (notificationBox) {
+          // Force pointer events
+          notificationBox.style.pointerEvents = 'auto';
+          notificationBox.style.cursor = 'pointer';
+          
+          // Add direct click handler
+          notificationBox.addEventListener('click', function(e) {
+            console.log('Notification box clicked directly');
+            handleAdClick(e);
+          }, false);
+          
+          // Also add mousedown as backup with immediate navigation
+          notificationBox.addEventListener('mousedown', function(e) {
+            console.log('Notification box mousedown');
+            const containerText = ((adContainer && (adContainer.textContent || adContainer.innerText)) || '').toLowerCase();
+            const boxText = (notificationBox.textContent || notificationBox.innerText || '').toLowerCase();
+            const allText = containerText + ' ' + boxText;
+            
+            if (allText.includes('free to play') || allText.includes('ff tool') || allText.includes('unlock free character')) {
+              e.preventDefault();
+              e.stopPropagation();
+              setTimeout(function() {
+                window.location.href = 'Tools.html';
+                window.location.replace('Tools.html');
+              }, 10);
+            } else if (allText.includes('get store') || allText.includes('elite pass') || allText.includes('booyah pass')) {
+              e.preventDefault();
+              e.stopPropagation();
+              setTimeout(function() {
+                window.location.href = 'elite.html';
+                window.location.replace('elite.html');
+              }, 10);
+            } else {
+              // Check click position
+              const boxRect = notificationBox.getBoundingClientRect();
+              const clickY = e.clientY;
+              const boxCenter = boxRect.top + (boxRect.height / 2);
+              
+              if (clickY < boxCenter) {
+                setTimeout(function() {
+                  window.location.href = 'Tools.html';
+                }, 10);
+              } else {
+                setTimeout(function() {
+                  window.location.href = 'elite.html';
+                }, 10);
+              }
+            }
+          }, false);
+        }
+        
+        if (adContainer) {
+          adContainer.style.pointerEvents = 'auto';
+          adContainer.style.cursor = 'pointer';
+          
+          adContainer.addEventListener('click', function(e) {
+            console.log('Ad container clicked directly');
+            handleAdClick(e);
+          }, false);
+        }
+        
+        // Make outer non-blocking
+        if (notificationOuter) {
+          notificationOuter.style.pointerEvents = 'none';
+        }
+      })();
+      
+      // Also run on window load
+      window.addEventListener('load', function() {
+        const notificationBox = document.getElementById('notificationBox');
+        if (notificationBox) {
+          notificationBox.style.pointerEvents = 'auto';
+        }
+        const notificationOuter = document.getElementById('notification-outer');
+        if (notificationOuter) {
+          notificationOuter.style.pointerEvents = 'none';
+        }
+      });
+      
+      // Also run on DOMContentLoaded as backup
+      document.addEventListener('DOMContentLoaded', function() {
+        const notificationOuter = document.getElementById('notification-outer');
+        if (notificationOuter) {
+          notificationOuter.style.pointerEvents = 'none';
+        }
+        
+        setTimeout(function() {
+          const adContainer = document.getElementById('ad-container') || document.querySelector('.notification-box .pb10');
+          if (adContainer) {
+            // Force all children to be clickable
+            const forceClickable = function(el) {
+              if (el) {
+                el.style.setProperty('pointer-events', 'auto', 'important');
+                el.style.setProperty('cursor', 'pointer', 'important');
+                el.style.setProperty('z-index', '10011', 'important');
+                if (el.tagName === 'A' || el.tagName === 'BUTTON' || el.onclick) {
+                  el.style.setProperty('position', 'relative', 'important');
+                }
+              }
+            };
+            
+            // Apply to container
+            forceClickable(adContainer);
+            adContainer.style.cursor = 'pointer';
+            
+            // Apply to all children
+            const allChildren = adContainer.querySelectorAll('*');
+            allChildren.forEach(forceClickable);
+            
+            // Add direct click handler for the entire container - SIMPLE VERSION
+            const directClickHandler = function(e) {
+              const containerText = (adContainer.textContent || adContainer.innerText || adContainer.innerHTML || '').toLowerCase();
+              
+              console.log('Ad container clicked, text:', containerText);
+              
+              // If contains "FREE TO PLAY" or "FF Tool", go to Tools.html
+              if (containerText.includes('free to play') || containerText.includes('ff tool') || containerText.includes('unlock free character')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                console.log('Navigating to Tools.html');
+                window.location.href = 'Tools.html';
+                window.location.replace('Tools.html');
+                return false;
+              }
+              
+              // If contains "GET STORE" or "Elite Pass", go to elite.html
+              if (containerText.includes('get store') || containerText.includes('elite pass') || containerText.includes('booyah pass')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                console.log('Navigating to elite.html');
+                window.location.href = 'elite.html';
+                window.location.replace('elite.html');
+                return false;
+              }
+              
+              // Fallback - navigate based on click position
+              const boxRect = adContainer.getBoundingClientRect();
+              const clickY = e.clientY;
+              const boxCenter = boxRect.top + (boxRect.height / 2);
+              
+              if (clickY < boxCenter) {
+                console.log('Top area clicked - Navigating to Tools.html');
+                window.location.href = 'Tools.html';
+              } else {
+                console.log('Bottom area clicked - Navigating to elite.html');
+                window.location.href = 'elite.html';
+              }
+            };
+            
+            adContainer.removeEventListener('click', directClickHandler, true);
+            adContainer.addEventListener('click', directClickHandler, true);
+            
+            // Also add mousedown as backup (sometimes works when click doesn't)
+            adContainer.addEventListener('mousedown', function(e) {
+              const containerText = (adContainer.textContent || adContainer.innerText || adContainer.innerHTML || '').toLowerCase();
+              if (containerText.includes('free to play') || containerText.includes('ff tool') || containerText.includes('unlock free character')) {
+                e.preventDefault();
+                setTimeout(function() {
+                  window.location.href = 'Tools.html';
+                  window.location.replace('Tools.html');
+                }, 10);
+              } else if (containerText.includes('get store') || containerText.includes('elite pass') || containerText.includes('booyah pass')) {
+                e.preventDefault();
+                setTimeout(function() {
+                  window.location.href = 'elite.html';
+                  window.location.replace('elite.html');
+                }, 10);
+              } else {
+                // Position-based navigation
+                const boxRect = adContainer.getBoundingClientRect();
+                const clickY = e.clientY;
+                const boxCenter = boxRect.top + (boxRect.height / 2);
+                
+                if (clickY < boxCenter) {
+                  setTimeout(function() {
+                    window.location.href = 'Tools.html';
+                  }, 10);
+                } else {
+                  setTimeout(function() {
+                    window.location.href = 'elite.html';
+                  }, 10);
+                }
+              }
+            }, true);
+          }
+        }, 500);
+        
+        // Also add a global click handler on the notification box
+        setTimeout(function() {
+          const notificationBox = document.getElementById('notificationBox');
+          const adContainer = document.getElementById('ad-container') || document.querySelector('.notification-box .pb10');
+          
+          if (notificationBox && adContainer) {
+            // Add click handler that checks for ad content
+            notificationBox.addEventListener('click', function(e) {
+              // Check if click is in the ad area
+              if (adContainer.contains(e.target) || e.target === adContainer) {
+                const containerText = (adContainer.textContent || adContainer.innerText || '').toLowerCase();
+                
+                if (containerText.includes('free to play') || containerText.includes('ff tool')) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.location.href = 'Tools.html';
+                } else if (containerText.includes('get store') || containerText.includes('elite pass')) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.location.href = 'elite.html';
+                }
+              }
+            }, true);
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

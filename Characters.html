@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Free Diamonds</title>
+    <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .box {
+        display: flex;
+        cursor: pointer;
+        justify-content: center;
+        position: relative;
+      }
+
+      .box-img {
+        height: 9rem;
+        width: 67px;
+        background-color: transparent;
+        position: relative;
+        z-index: 20;
+      }
+
+      .bimg {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        background-color: transparent;
+      }
+
+      .inner-box {
+        z-index: 10;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0);
+        backdrop-filter: blur(6px);
+        width: 100%;
+        height: 95px;
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+
+      .char-name {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-top: 0;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        z-index: 30;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        text-align: center;
+        color: #ffffff;
+        font-size: 1rem;
+        line-height: 1.25rem;
+        letter-spacing: 0.64px;
+        text-transform: uppercase;
+        font-weight: 400;
+        background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.3)
+          ),
+          hsla(0, 0%, 100%, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-arrow">
+        <button
+          onclick="goback()"
+          style="color: white; font-size: 18px; background-color: transparent"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+      <div class="header-title" id="header-title">Weapons</div>
+      <div class="info-icon">
+       <button onclick="window.location.href='/';" style="color: white; font-size: 18px; background-color: transparent;"><i class="fa-solid fa-house"></i></button>
+      </div>
+    </header>
+    <div class="outer">
+      <div class="container">
+        <div class="inner">
+          <div class="pb10" style="width: 360px; height: 280px; padding:16px 0 ;"></div>
+      
+          <div class="item" id="item-grid"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { logPageView } from "./firebase-config.js";
+      logPageView("Characters page");
+    </script>
+    <script src="assets/css/js/json.js"></script>
+    <img src="assets/img/Characters/" alt="" />
+    <script>
+      // Function to get URL parameter
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // Function to load items based on type and id
+      function loadItems() {
+        const grid = document.getElementById("item-grid");
+        const headerTitle = document.getElementById("header-title");
+        const typeFilter = getUrlParameter("type");
+        const idFilter = parseInt(getUrlParameter("id"));
+
+        if (typeFilter && typeFilter.toLowerCase() === "weapon" && idFilter) {
+          const selectedWeapon = data.weapons.find(
+            (weapon) => weapon.id === idFilter
+          );
+
+          if (
+            selectedWeapon &&
+            selectedWeapon.subItems &&
+            selectedWeapon.subItems.length > 0
+          ) {
+            headerTitle.textContent = `${selectedWeapon.name}`;
+
+            selectedWeapon.subItems.forEach((subItem) => {
+              const subItemElement = document.createElement("a");
+              subItemElement.href = `item.html?id=${
+                subItem.id
+              }&name=${encodeURIComponent(subItem.name)}&type=subItem`;
+              subItemElement.className = "box";
+
+              subItemElement.innerHTML = `
+                            <div class="box-img">
+                                <img src="${subItem.url}" class="bimg" alt="${subItem.name}">
+                            </div>
+                            <div class="inner-box"></div>
+                            <div class="char-name">${subItem.name}</div>
+                        `;
+
+              grid.appendChild(subItemElement);
+            });
+          } else {
+            grid.innerHTML = "<p style='color: white; text-align: center; padding: 20px;'>No sub-items found for this weapon.</p>";
+          }
+        } else if (typeFilter && (typeFilter.toLowerCase() === "characters" || typeFilter.toLowerCase() === "character")) {
+          headerTitle.textContent = "Characters";
+          if (data.characters && data.characters.length > 0) {
+            data.characters.forEach((character) => {
+              const charElement = document.createElement("a");
+              charElement.href = `item.html?id=${
+                character.id
+              }&name=${encodeURIComponent(character.name)}&type=character`;
+              charElement.className = "box";
+
+              charElement.innerHTML = `
+                        <div class="box-img">
+                            <img src="${character.url}" class="bimg" alt="${character.name}">
+                        </div>
+                        <div class="inner-box"></div>
+                        <div class="char-name">${character.name}</div>
+                    `;
+
+              grid.appendChild(charElement);
+            });
+          } else {
+            grid.innerHTML = "<p style='color: white; text-align: center; padding: 20px;'>No characters found.</p>";
+          }
+        } else if (typeFilter && typeFilter.toLowerCase() === "pets") {
+          headerTitle.textContent = "Pets";
+          if (data.pets && data.pets.length > 0) {
+            data.pets.forEach((pet) => {
+              const petElement = document.createElement("a");
+              petElement.href = `item.html?id=${pet.id}&name=${encodeURIComponent(
+                pet.name
+              )}&type=pet`;
+              petElement.className = "box";
+
+              petElement.innerHTML = `
+                        <div class="box-img">
+                            <img src="${pet.url}" class="bimg" alt="${pet.name}">
+                        </div>
+                        <div class="inner-box"></div>
+                        <div class="char-name">${pet.name}</div>
+                    `;
+
+              grid.appendChild(petElement);
+            });
+          } else {
+            grid.innerHTML = "<p style='color: white; text-align: center; padding: 20px;'>No pets found.</p>";
+          }
+        } else if (typeFilter && typeFilter.toLowerCase() === "emotes") {
+          headerTitle.textContent = "Emotes";
+          if (data.emotes && data.emotes.length > 0) {
+            data.emotes.forEach((emote) => {
+              const emoteElement = document.createElement("a");
+              emoteElement.href = `item.html?id=${
+                emote.id
+              }&name=${encodeURIComponent(emote.name)}&type=emote`;
+              emoteElement.className = "box";
+
+              emoteElement.innerHTML = `
+                        <div class="box-img">
+                            <img src="${emote.url}" class="bimg" alt="${emote.name}">
+                        </div>
+                        <div class="inner-box"></div>
+                        <div class="char-name">${emote.name}</div>
+                    `;
+
+              grid.appendChild(emoteElement);
+            });
+          } else {
+            grid.innerHTML = "<p style='color: white; text-align: center; padding: 20px;'>No emotes found.</p>";
+          }
+        } else {
+          grid.innerHTML = "<p style='color: white; text-align: center; padding: 20px;'>No items found. Please check the URL parameters.</p>";
+        }
+      }
+
+      // Load items when page loads
+      window.onload = loadItems;
+    </script>
+     <script>
+        function goback(){
+          window.history.back()
+        }
+      </script>
+  </body>
+</html>

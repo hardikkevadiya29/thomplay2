@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Free Diamonds</title>
+    <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+   
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(6px);
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        border-radius: 1rem;
+        cursor: pointer;
+      }
+      .player-name {
+        color: #ffffff;
+        font-size: 1.125rem;
+        font-weight: 600;
+        line-height: 1.5rem;
+        padding-top: 0.875rem;
+        padding-bottom: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-arrow">
+        <button onclick="goback()" style="color: white; font-size: 18px; background-color: transparent;"> <i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+      <!-- Left arrow -->
+      <div class="header-title">Players</div>
+      <div class="info-icon">
+       <button onclick="window.location.href='/';" style="color: white; font-size: 18px; background-color: transparent;"><i class="fa-solid fa-house"></i></button>
+      </div>
+      <!-- Info icon -->
+    </header>
+    <div class="outer">
+      <div class="container">
+        <div class="inner">
+          <div class="pb10" style="width: 360px; height: 280px; padding:16px 0 ;"></div>
+          <div class="item-outer">
+            <a href="level.html"
+              ><div class="item">
+                <div class="player-name">Pro Players</div>
+                <img
+                  src="assets/img/Characters/kairos.png"
+                  style="width: 50px"
+                /></div
+            ></a>
+            <a href="level.html"
+              ><div class="item">
+                <div class="player-name">Casual Players</div>
+                <img
+                  src="assets/img/Characters/orion.png"
+                  style="width: 50px"
+                /></div
+            ></a>
+            <a href="level.html"
+              ><div class="item">
+                <div class="player-name">Mix Players</div>
+                <img
+                  src="assets/img/Characters/luna.png"
+                  style="width: 50px"
+                /></div
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { logPageView } from "./firebase-config.js";
+      logPageView("players page");
+    </script>
+    <script>
+      function goback(){
+        window.history.back()
+      }
+    </script>
+  </body>
+</html>

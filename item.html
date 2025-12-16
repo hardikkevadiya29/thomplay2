@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Free Diamonds</title>
+    <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .item-img {
+        max-height: 12rem;
+        max-width: 100%;
+      }
+      .btn-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
+        border-radius: 0.75rem;
+        width: 100%;
+        background: linear-gradient(to right, #6b21a8, #9333ea, #3b82f6);
+      }
+      .btn-apply {
+        background-image: url("assets/img/Characters/bg-details.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        padding-bottom: 1.5rem;
+        padding-top: 1.75rem;
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 1.5rem;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      @media (min-width: 768px) {
+        .btn-apply {
+          width: 375px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+      .btn-name {
+        color: #ffffff;
+        font-size: 1.125rem;
+        line-height: 1.5rem;
+        font-weight: 700;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-arrow">
+        <button
+          onclick="goback()"
+          style="color: white; font-size: 18px; background-color: transparent"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+      <div class="header-title" id="char-name"></div>
+      <div class="info-icon">
+        <button
+          onclick="window.location.href='/';"
+          style="color: white; font-size: 18px; background-color: transparent"
+        >
+          <i class="fa-solid fa-house"></i>
+        </button>
+      </div>
+    </header>
+    <div class="outer">
+      <div class="container">
+        <div class="inner">
+          <div class="item">
+            <img id="char-img" class="item-img" alt="" />
+          </div>
+          <div
+            class="pb10"
+            style="width: 360px; height: 230px; padding: 16px 0"
+          ></div>
+          <div class="btn-apply">
+            <div>
+              <a href="Players.html">
+                <button class="btn-inner">
+                  <span class="btn-name">Apply Now</span>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { logPageView } from "./firebase-config.js";
+      logPageView("item page");
+    </script>
+    <script src="assets/js/json.js"></script>
+    <script>
+      // Function to get URL parameters
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // Get ID, name, and type from URL
+      const itemId = parseInt(getUrlParameter("id"));
+      const itemName = getUrlParameter("name");
+      const itemType = getUrlParameter("type");
+
+      const titleElement = document.getElementById("char-name");
+      const imgElement = document.getElementById("char-img");
+      const backLink = document.getElementById("back-link");
+
+      if (itemType === "character") {
+        const character = data.characters.find((char) => char.id === itemId);
+        if (character) {
+          titleElement.textContent = `${character.name}`;
+          imgElement.src = character.url;
+          imgElement.alt = character.name;
+          backLink.href = "Characters.html?type=characters";
+        } else {
+          titleElement.textContent = "Character Not Found";
+          backLink.href = "Characters.html?type=characters";
+        }
+      } else if (itemType === "subItem") {
+        let foundSubItem = null;
+        data.weapons.forEach((weapon) => {
+          const subItem = weapon.subItems.find((sub) => sub.id === itemId);
+          if (subItem) {
+            foundSubItem = subItem;
+          }
+        });
+        if (foundSubItem) {
+          titleElement.textContent = `${foundSubItem.name}`;
+          imgElement.src = foundSubItem.url;
+          imgElement.alt = foundSubItem.name;
+          // Note: For subItems, you might need to pass the parent weapon ID in the URL to return to the correct weapon list
+          backLink.href =
+            "Characters.html?type=weapon&id=" + getUrlParameter("parentId"); // Adjust if needed
+        } else {
+          titleElement.textContent = "Item Not Found";
+          backLink.href = "Characters.html?type=weapons"; // Default to weapons list
+        }
+      } else if (itemType === "pet") {
+        const pet = data.pets.find((pet) => pet.id === itemId);
+        if (pet) {
+          titleElement.textContent = `${pet.name}`;
+          imgElement.src = pet.url;
+          imgElement.alt = pet.name;
+          backLink.href = "Characters.html?type=pets";
+        } else {
+          titleElement.textContent = "Pet Not Found";
+          backLink.href = "Characters.html?type=pets";
+        }
+      } else if (itemType === "emote") {
+        const emote = data.emotes.find((emote) => emote.id === itemId);
+        if (emote) {
+          titleElement.textContent = `${emote.name}`;
+          imgElement.src = emote.url;
+          imgElement.alt = emote.name;
+          backLink.href = "Characters.html?type=emotes";
+        } else {
+          titleElement.textContent = "Emote Not Found";
+          backLink.href = "Characters.html?type=emotes";
+        }
+      } else {
+        titleElement.textContent = "Invalid Item Type";
+        backLink.href = "/"; // Default back to home
+      }
+    </script>
+    <script>
+      function goback() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>
