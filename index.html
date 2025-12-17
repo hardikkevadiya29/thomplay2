@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FF Free Diamonds</title>
     <link rel="icon" href="assets/img/titlelogo.png" type="image/png" />
+    <link rel="preload" as="image" href="assets/img/logo.png" />
      <script type="text/javascript">
     (function (c, l, a, r, i, t, y) {
       c[a] =
@@ -25,6 +26,13 @@
         margin: 0;
         box-sizing: border-box;
       }
+      html,
+      body {
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
       img {
         display: block;
         max-width: 100%;
@@ -32,14 +40,21 @@
       }
       body {
         display: block;
-        background-color: #1a1a2e;
+        background-color: #070711;
+      }
+      /* Remove unwanted blank ad-slot space when container is empty */
+      .pb10:empty {
+        display: none !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
       .body {
         display: block;
         width: 100%;
       }
       .notification-outer {
-        display: none !important;
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -60,7 +75,7 @@
         pointer-events: none;
       }
       .notification-box {
-        display: none !important;
+        display: none;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -111,7 +126,6 @@
 
 
       .pb10 {
-        display:none!important;
         /* width: 360px;
         height: 280px; */
         margin: 0 auto;
@@ -133,11 +147,12 @@
         display: block;
         margin: 0 auto;
         position: relative;
+        padding-bottom: 24px;
       }
       .logo-outer {
         display: block;
         justify-items: center;
-        margin-bottom: 26px;
+        margin-bottom: 16px;
       }
       .logo {
         width: 9rem;
@@ -145,7 +160,7 @@
       }
       .item {
         display: flex;
-        padding-top: 2.5rem;
+        padding-top: 1.25rem;
         padding-left: 1.25rem;
         padding-right: 1.25rem;
         justify-content: center;
@@ -238,13 +253,8 @@
         <div class="container">
           <div class="inner">
             <div class="logo-outer">
-              <img alt="Logo" class="logo" src="assets/img/logo.png" />
+              <img alt="Logo" class="logo" src="assets/img/logo.png" fetchpriority="high" decoding="async" />
             </div>
-
-            <!--   <div
-              class="pb10"
-              style="width: 360px; height: 280px; padding: 16px 0"
-            ></div> -->
             <div class="popup-overlay" id="next-outer1">
               <div class="popup-dialog" id="nextbox1">
                 <h2 class="popup-heading">Unlock ads blocker</h2>
@@ -263,17 +273,17 @@
             </div>
             <div class="item">
               <a href="Tools.html">
-                <img src="assets/img/home-btn.png" class="" />
+                <img src="assets/img/home-btn.png" class="" loading="lazy" decoding="async" />
               </a>
             </div>
             <div class="item">
               <a href="elite.html">
-                <img src="assets/img/elite-home.png" alt="" />
+                <img src="assets/img/elite-home.png" alt="" loading="lazy" decoding="async" />
               </a>
             </div>
             <div class="item">
               <a href="diamonds-coin.html">
-                <img src="assets/img/coin-home.png" alt="" />
+                <img src="assets/img/coin-home.png" alt="" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>
@@ -288,9 +298,33 @@
 
     <script>
       function demo() {
-        document.getElementById("notificationBox").style.display = "block";
-        document.getElementById("notification-outer").style.display = "block";
-        document.body.classList.add("no-scroll");
+        // Show notification/ad overlay only if ad content actually loads.
+        const notificationBoxEl = document.getElementById("notificationBox");
+        const notificationOuterEl = document.getElementById("notification-outer");
+        const adContainerEl = document.getElementById("ad-container");
+
+        const hasAdContent = () => {
+          if (!adContainerEl) return false;
+          // Ads usually inject iframes or other nodes; empty container should not show overlay
+          if (adContainerEl.querySelector && adContainerEl.querySelector("iframe")) return true;
+          if (adContainerEl.children && adContainerEl.children.length > 0) return true;
+          const txt = (adContainerEl.textContent || "").trim();
+          return txt.length > 0;
+        };
+
+        const syncOverlayVisibility = () => {
+          const show = hasAdContent();
+          if (notificationBoxEl) notificationBoxEl.style.display = show ? "block" : "none";
+          if (notificationOuterEl) notificationOuterEl.style.display = show ? "block" : "none";
+        };
+
+        // Initial state + recheck a few times for late-loading ads
+        syncOverlayVisibility();
+        setTimeout(syncOverlayVisibility, 250);
+        setTimeout(syncOverlayVisibility, 800);
+        setTimeout(syncOverlayVisibility, 1500);
+        setTimeout(syncOverlayVisibility, 2500);
+        // NOTE: don't block page scroll; users reported scrolling is not working.
         
         // Force notification box to be clickable
         const notificationBox = document.getElementById('notificationBox');
